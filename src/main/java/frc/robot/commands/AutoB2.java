@@ -4,22 +4,25 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import frc.robot.Drivetrain;
+
 import frc.robot.subsystems.Wrist;
-import frc.robot.subsystems.Arm;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class RunAutoCommand extends SequentialCommandGroup {
-  /** Creates a new RunAutoCommand. */
- 
-  public RunAutoCommand(Wrist wrist, Arm arm) {
+public class AutoB2 extends ParallelCommandGroup {
+  /** Creates a new AutoB2. */
+  public AutoB2(Drivetrain drivetrain, Wrist wrist ) {
+    Drivetrain m_drivetrain = drivetrain;
+    Wrist m_wrist = wrist;
+  
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new WristToStart(wrist),
-      new ArmExtend(arm)
+      new AutoDriveB2(m_drivetrain),
+      new WristToBottom(m_wrist)
 
     );
   }

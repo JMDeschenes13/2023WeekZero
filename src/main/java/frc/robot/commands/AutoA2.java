@@ -10,15 +10,15 @@ import frc.robot.Drivetrain;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class Auto2 extends ParallelCommandGroup {
+public class AutoA2 extends ParallelCommandGroup {
   Drivetrain m_drivetrain;
   /** Creates a new Auto2. */
-  public Auto2(Drivetrain drivetrain) {
+  public AutoA2(Drivetrain drivetrain) {
     m_drivetrain = drivetrain;
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new AutoDrive2(m_drivetrain)
+      new AutoDriveA2(m_drivetrain)
 
     );
   }

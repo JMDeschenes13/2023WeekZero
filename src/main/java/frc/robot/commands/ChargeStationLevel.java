@@ -8,9 +8,11 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Drivetrain;
 
+
+
 public class ChargeStationLevel extends CommandBase {
   Drivetrain m_drivetrain;
-  PIDController m_PIDController = new PIDController(.05,0,0);
+  PIDController m_PIDController = new PIDController(.05,0.005,0);
   /** Creates a new ChargeStationLevel. */
   public ChargeStationLevel(Drivetrain drivetrain) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -34,7 +36,9 @@ public class ChargeStationLevel extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    m_drivetrain.LockWheels();
+  }
 
   // Returns true when the command should end.
   @Override

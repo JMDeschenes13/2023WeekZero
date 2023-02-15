@@ -4,15 +4,13 @@
 
 package frc.robot;
 
-import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.math.filter.SlewRateLimiter;
+
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.GenericHID.RumbleType;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.hal.simulation.DriverStationDataJNI;
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.UsbCamera;
+
 
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
@@ -41,6 +39,12 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit(){
     m_robotContainer = new RobotContainer();
+    UsbCamera cam0 = CameraServer.startAutomaticCapture();
+    cam0.setFPS(20);
+
+    // Runs cameras at 20 FPS
+    UsbCamera cam1 = CameraServer.startAutomaticCapture();
+    cam1.setFPS(20);
   }
   @Override
   public void autonomousPeriodic() {

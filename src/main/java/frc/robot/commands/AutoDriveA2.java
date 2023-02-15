@@ -21,12 +21,13 @@ import frc.robot.Drivetrain;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 
-public class AutoDrive2 extends CommandBase {
+public class AutoDriveA2 extends CommandBase {
   /** Creates a new AutoDrive. */
   Drivetrain m_drivetrain;
-  public AutoDrive2(Drivetrain drivetrain) {
+  public AutoDriveA2(Drivetrain drivetrain) {
     m_drivetrain = drivetrain;
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(drivetrain);
   }
 
   // Called when the command is initially scheduled.

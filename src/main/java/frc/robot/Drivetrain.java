@@ -116,6 +116,16 @@ public class Drivetrain extends SubsystemBase {
     m_backRight.setDesiredState(swerveModuleStates[3]);
   }
 
+  public void LockWheels(){
+    SwerveModuleState[] moduleStates = {
+      new SwerveModuleState(0,new Rotation2d((7*Math.PI)/4)),
+      new SwerveModuleState(0, new Rotation2d((5*Math.PI)/4)),
+      new SwerveModuleState(0, new Rotation2d((Math.PI/4))),
+      new SwerveModuleState(0 , new Rotation2d((3*Math.PI)/4))
+
+    };
+    setModuleStates(moduleStates);
+  }
   @Override
   public void periodic(){
     SmartDashboard.putNumber("Encoder 0 Counts", m_frontLeft.m_turningEncoder.getDistance() );
