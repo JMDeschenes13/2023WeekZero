@@ -13,13 +13,13 @@ import frc.robot.subsystems.Wrist;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AutoCommandB extends SequentialCommandGroup {
+public class AutoCommandC extends SequentialCommandGroup {
+  /** Creates a new AutoCommandC. */
   Wrist m_wrist;
   Arm m_arm;
   Claw m_claw;
   Drivetrain m_drivetrain;
-  /** Creates a new AutoCommandB. */
-  public AutoCommandB(Drivetrain drivetrain, Arm arm, Wrist wrist, Claw claw) {
+  public AutoCommandC(Drivetrain drivetrain, Arm arm, Wrist wrist, Claw claw) {
     m_wrist = wrist;
     m_arm = arm;
     m_claw = claw;
@@ -30,7 +30,11 @@ public class AutoCommandB extends SequentialCommandGroup {
       new WristToStart(m_wrist),
       new AutoToTopPeg(m_drivetrain, m_arm, m_wrist),
       new ClawOpen(m_claw),
-      new AutoB1(m_drivetrain, m_wrist)
+      new AutoC1(m_drivetrain, m_wrist),
+      new ClawClose(m_claw),
+      new AutoC2(m_drivetrain, m_wrist),
+      new ClawOpen(m_claw),
+      new AutoC3(m_drivetrain, m_wrist)
 
     );
   }

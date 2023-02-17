@@ -17,24 +17,22 @@ import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
-import frc.robot.Drivetrain;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.Drivetrain;
 
-public class AutoDriveA1 extends CommandBase {
-  /** Creates a new AutoDrive. */
+public class AutoRotate180 extends CommandBase {
   Drivetrain m_drivetrain;
-  public AutoDriveA1(Drivetrain drivetrain) {
+  /** Creates a new AutoRotate180. */
+  public AutoRotate180(Drivetrain drivetrain) {
     m_drivetrain = drivetrain;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(drivetrain);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     drive();
-         
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -54,9 +52,9 @@ public class AutoDriveA1 extends CommandBase {
       // Start at the origin facing the +X direction
       new Pose2d(0, 0, new Rotation2d(0)),
       // Pass through these two interior waypoints, making an 's' curve path
-      List.of(new Translation2d(0, 0), new Translation2d(0, 0)),
+      List.of(new Translation2d(0, 0)),
       // End 3 meters straight ahead of where we started, facing forward
-      new Pose2d(2.6, 0, new Rotation2d(0)),
+      new Pose2d(0, 0, new Rotation2d(Math.PI)),
       config);
 
   var thetaController = new ProfiledPIDController(

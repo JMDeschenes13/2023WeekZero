@@ -97,6 +97,10 @@ public class Constants {
     }
 
     public static final class AutoConstants {
+        public static final double kFirstShelfToOuterWall = 1.04775;
+        public static final double kSecondPegToOuterWall = 1.59226;
+        public static final double kFirstPegToOuterWall = .422275;
+        public static final double kOuterGamepieceMetersFromWall = .92075;
         public static final double kMaxSpeedMetersPerSecond = 3;
         public static final double kMaxAccelerationMetersPerSecondSquared = 3;
         public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
@@ -142,4 +146,6 @@ public class Constants {
         public static final int kactuatorJoystick = 1;
 
     }    
+
+    
 }

@@ -8,7 +8,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.TalonFXSensorCollection;
 //import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
@@ -37,7 +37,7 @@ public class SwerveModule extends SubsystemBase{
       2 * Math.PI; // radians per second squared
 
   private final WPI_TalonFX m_driveMotor;
-  private final WPI_VictorSPX m_turningMotor;
+  private final WPI_TalonSRX m_turningMotor;
 
   private final TalonFXSensorCollection m_driveEncoder;
   public final Encoder m_turningEncoder;
@@ -77,7 +77,7 @@ public class SwerveModule extends SubsystemBase{
       boolean turningMotorInverted) {
     this.driveMotorChannel = driveMotorChannel;
     m_driveMotor = new WPI_TalonFX(driveMotorChannel);
-    m_turningMotor = new WPI_VictorSPX(turningMotorChannel);
+    m_turningMotor = new WPI_TalonSRX(turningMotorChannel);
 
     m_driveMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
     m_turningEncoder = new Encoder(turningEncoderChannelA, turningEncoderChannelB);

@@ -21,20 +21,18 @@ import frc.robot.Drivetrain;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 
-public class AutoDriveA1 extends CommandBase {
-  /** Creates a new AutoDrive. */
+public class AutoDriveC3 extends CommandBase {
   Drivetrain m_drivetrain;
-  public AutoDriveA1(Drivetrain drivetrain) {
+  /** Creates a new AutoDriveC3. */
+  public AutoDriveC3(Drivetrain drivetrain) {
     m_drivetrain = drivetrain;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(drivetrain);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     drive();
-         
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -81,6 +79,7 @@ public class AutoDriveA1 extends CommandBase {
   // Run path following command, then stop at the end.
   return swerveControllerCommand.andThen(() -> m_drivetrain.drive(0, 0, 0, false));
   }
+
 
   // Called once the command ends or is interrupted.
   @Override

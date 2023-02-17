@@ -4,6 +4,8 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj2.command.CommandBase;
+
 import java.util.List;
 
 import edu.wpi.first.math.controller.PIDController;
@@ -21,20 +23,19 @@ import frc.robot.Drivetrain;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 
-public class AutoDriveA2 extends CommandBase {
-  /** Creates a new AutoDrive. */
+public class AutoDriveC1 extends CommandBase {
   Drivetrain m_drivetrain;
-  public AutoDriveA2(Drivetrain drivetrain) {
+  /** Creates a new AutoDriveC1. */
+  public AutoDriveC1(Drivetrain drivetrain) {
     m_drivetrain = drivetrain;
-    // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drivetrain);
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     drive();
-         
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -42,6 +43,7 @@ public class AutoDriveA2 extends CommandBase {
   public void execute() {}
 
   public Command drive(){
+    double yMovement = AutoConstants.kFirstPegToOuterWall - AutoConstants.kOuterGamepieceMetersFromWall;
     // Create config for trajectory
     TrajectoryConfig config = new TrajectoryConfig(
       AutoConstants.kMaxSpeedMetersPerSecond,
@@ -54,9 +56,9 @@ public class AutoDriveA2 extends CommandBase {
       // Start at the origin facing the +X direction
       new Pose2d(0, 0, new Rotation2d(0)),
       // Pass through these two interior waypoints, making an 's' curve path
-      List.of(new Translation2d(0, 0), new Translation2d(0, 0)),
+      List.of(new Translation2d(4.25,yMovement )),
       // End 3 meters straight ahead of where we started, facing forward
-      new Pose2d(3, 0, new Rotation2d(0)),
+      new Pose2d(4.953, yMovement, new Rotation2d(Math.PI)),
       config);
 
   var thetaController = new ProfiledPIDController(

@@ -37,7 +37,7 @@ public class ChargeStationLevel extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_drivetrain.LockWheels();
+    new DrivetrainLockWheels(m_drivetrain);
   }
 
   // Returns true when the command should end.

@@ -29,9 +29,9 @@ public class AutoCommandA extends SequentialCommandGroup {
     m_drivetrain = drivetrain;
     addCommands(
       new WristToStart(m_wrist),
-      new AutoA1(m_drivetrain, m_arm, m_wrist),
+      new AutoToTopPeg(m_drivetrain, m_arm, m_wrist),
       new ClawOpen(m_claw),
-      new AutoA2(m_drivetrain),
+      new AutoA1(m_drivetrain, m_wrist),
       new ChargeStationLevel(m_drivetrain)
 
       

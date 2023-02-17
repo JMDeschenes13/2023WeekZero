@@ -37,6 +37,11 @@ public class AutoCommandSelector extends CommandBase {
       if(m_autoSelected == "B"){
         new AutoCommandB(m_drivetrain, m_arm, m_wrist, m_claw);
       }
+      else{
+        if(m_autoSelected == "C"){
+          new AutoCommandC(m_drivetrain, m_arm, m_wrist, m_claw);
+        }
+      }
 
     }
   }

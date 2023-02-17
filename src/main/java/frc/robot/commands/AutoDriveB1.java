@@ -4,8 +4,6 @@
 
 package frc.robot.commands;
 
-
-
 import java.util.List;
 
 import edu.wpi.first.math.controller.PIDController;
@@ -23,9 +21,11 @@ import frc.robot.Drivetrain;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 
+
+
 public class AutoDriveB1 extends CommandBase {
   Drivetrain m_drivetrain;
-  /** Creates a new AutoDriveB1. */
+  /** Creates a new AutoDriveB2. */
   public AutoDriveB1(Drivetrain drivetrain) {
     m_drivetrain = drivetrain;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -34,13 +34,12 @@ public class AutoDriveB1 extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    drive();
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {}
+
   public Command drive(){
     // Create config for trajectory
     TrajectoryConfig config = new TrajectoryConfig(
@@ -53,10 +52,10 @@ public class AutoDriveB1 extends CommandBase {
   Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
       // Start at the origin facing the +X direction
       new Pose2d(0, 0, new Rotation2d(0)),
-      // Pass through these two interior waypoints, making an 's' curve path
-      List.of(new Translation2d(0, 0), new Translation2d(1, 0)),
-      // End 3 meters straight ahead of where we started, facing forward
-      new Pose2d(0, 0, new Rotation2d(0)),
+      // Pass through these two interior waypoints
+      List.of(new Translation2d(1, 0), new Translation2d(2, 0)),
+      // End x meters straight ahead of where we started, facing forward
+      new Pose2d(5, 0, new Rotation2d(Math.PI)),
       config);
 
   var thetaController = new ProfiledPIDController(

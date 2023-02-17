@@ -27,6 +27,7 @@ import frc.robot.subsystems.Arm;
 //import frc.robot.commands.ActuateClaw;
 import frc.robot.commands.ClawClose;
 import frc.robot.commands.ClawOpen;
+import frc.robot.commands.DrivetrainLockWheels;
 import frc.robot.commands.WristToBottom;
 import frc.robot.commands.WristToFeederStation;
 import frc.robot.commands.WristToMiddlePeg;
@@ -47,6 +48,7 @@ public class RobotContainer {
 
     private static final String kAutoA= "A";
     private static final String kAutoB = "B";
+    private static final String kAutoC = "C";
     private String m_autoSelected;
     private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
@@ -79,6 +81,7 @@ public class RobotContainer {
     private final WristToTopShelf m_wristToTopShelf = new WristToTopShelf(m_wrist);
     private final ArmExtend m_armExtend = new ArmExtend(m_arm);
     private final ArmRetract m_armRetract = new ArmRetract(m_arm);
+    private final DrivetrainLockWheels m_lockWheels = new DrivetrainLockWheels(m_drivetrain);
     
     
 
@@ -87,6 +90,7 @@ public class RobotContainer {
     public RobotContainer(){
         m_chooser.setDefaultOption("A", kAutoA);
         m_chooser.addOption("B", kAutoB);
+        m_chooser.addOption("C", kAutoC);
         SmartDashboard.putData("Auto choices", m_chooser);
 
         
@@ -115,6 +119,7 @@ public class RobotContainer {
         //new JoystickButton(m_driveJoystick, 12).onTrue(m_wristToTopShelf);
         new JoystickButton(m_driveJoystick, 4).onTrue(m_armRetract);
         new JoystickButton(m_driveJoystick, 6).onTrue(m_armExtend);
+        new JoystickButton(m_driveJoystick, 12).onTrue(m_lockWheels);
         new JoystickButton(m_actuatorJoystick, Button.kA.value).onTrue(m_wristToBottom);
         new JoystickButton(m_actuatorJoystick, Button.kB.value).onTrue(m_wristToFeederStation);
         new JoystickButton(m_actuatorJoystick, Button.kX.value).onTrue(m_wristToMiddlePeg);
