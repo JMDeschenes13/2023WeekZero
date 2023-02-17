@@ -49,6 +49,8 @@ public class RobotContainer {
     private static final String kAutoA= "A";
     private static final String kAutoB = "B";
     private static final String kAutoC = "C";
+    private static final String kAutoD = "D";
+    private static final String kAutoE = "E";
     private String m_autoSelected;
     private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
@@ -91,6 +93,8 @@ public class RobotContainer {
         m_chooser.setDefaultOption("A", kAutoA);
         m_chooser.addOption("B", kAutoB);
         m_chooser.addOption("C", kAutoC);
+        m_chooser.addOption("D", kAutoD);
+        m_chooser.addOption("E", kAutoE);
         SmartDashboard.putData("Auto choices", m_chooser);
 
         

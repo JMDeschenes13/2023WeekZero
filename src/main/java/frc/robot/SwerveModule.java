@@ -48,7 +48,7 @@ public class SwerveModule extends SubsystemBase{
   // Gains are for example purposes only - must be determined for your own robot!
   private final ProfiledPIDController m_turningPIDController =
       new ProfiledPIDController(
-          10,
+          11,
           0,
           0,
           new TrapezoidProfile.Constraints(

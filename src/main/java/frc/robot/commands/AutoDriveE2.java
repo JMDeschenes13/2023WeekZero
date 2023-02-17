@@ -4,8 +4,6 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
-
 import java.util.List;
 
 import edu.wpi.first.math.controller.PIDController;
@@ -17,16 +15,18 @@ import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
-import frc.robot.Drivetrain;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.Drivetrain;
 
-public class AutoDriveC2 extends CommandBase {
+public class AutoDriveE2 extends CommandBase {
   Drivetrain m_drivetrain;
-  /** Creates a new AutoDriveC2. */
-  public AutoDriveC2(Drivetrain drivetrain) {
+  /** Creates a new AutoDriveE1. */
+  public AutoDriveE2(Drivetrain drivetrain) {
     m_drivetrain = drivetrain;
+    addRequirements(drivetrain);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -41,8 +41,8 @@ public class AutoDriveC2 extends CommandBase {
   public void execute() {}
 
   public Command drive(){
-    double yMovement = AutoConstants.kAutoDriveC2DeltaY ;
     // Create config for trajectory
+    double yMovement = AutoConstants.kAutoDriveE2DeltaY;
     TrajectoryConfig config = new TrajectoryConfig(
       AutoConstants.kMaxSpeedMetersPerSecond,
       AutoConstants.kMaxAccelerationMetersPerSecondSquared)
@@ -52,9 +52,9 @@ public class AutoDriveC2 extends CommandBase {
   // An example trajectory to follow. All units in meters.
   Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
       // Start at the origin facing the +X direction
-      new Pose2d(0, 0,  new Rotation2d(Math.PI)),
+      new Pose2d(0, 0, new Rotation2d(Math.PI)),
       // Pass through these two interior waypoints, making an 's' curve path
-      List.of(new Translation2d(-.5, 0), new Translation2d(-4.5, 0)),
+      List.of(new Translation2d(-0.5,0 )),
       // End 3 meters straight ahead of where we started, facing forward
       new Pose2d(-4.953, yMovement, new Rotation2d(0)),
       config);
@@ -69,7 +69,7 @@ public class AutoDriveC2 extends CommandBase {
       DriveConstants.kDriveKinematics,
 
       // Position controllers
-      new PIDController(AutoConstants.kPXController, 0, 0),
+      new PIDController(AutoConstants.kPXController, 0.005, 0),
       new PIDController(AutoConstants.kPYController, 0, 0),
       thetaController,
       m_drivetrain::setModuleStates,
@@ -81,6 +81,7 @@ public class AutoDriveC2 extends CommandBase {
   // Run path following command, then stop at the end.
   return swerveControllerCommand.andThen(() -> m_drivetrain.drive(0, 0, 0, false));
   }
+
 
   // Called once the command ends or is interrupted.
   @Override

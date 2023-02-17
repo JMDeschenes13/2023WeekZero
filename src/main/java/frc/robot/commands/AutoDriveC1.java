@@ -43,7 +43,7 @@ public class AutoDriveC1 extends CommandBase {
   public void execute() {}
 
   public Command drive(){
-    double yMovement = AutoConstants.kFirstPegToOuterWall - AutoConstants.kOuterGamepieceMetersFromWall;
+    double yMovement = AutoConstants.kAutoDriveC1DeltaY;
     // Create config for trajectory
     TrajectoryConfig config = new TrajectoryConfig(
       AutoConstants.kMaxSpeedMetersPerSecond,

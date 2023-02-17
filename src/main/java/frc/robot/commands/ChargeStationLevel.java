@@ -43,7 +43,7 @@ public class ChargeStationLevel extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(m_drivetrain.m_gyro.getPitch() - 3 > -3 || m_drivetrain.m_gyro.getPitch() + 3 < 3){
+    if(Math.abs(m_drivetrain.m_gyro.getPitch()) < 2){
       return true;
     }
     else{

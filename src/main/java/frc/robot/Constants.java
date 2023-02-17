@@ -97,12 +97,20 @@ public class Constants {
     }
 
     public static final class AutoConstants {
+        public static final double kLastPegFromOuterWall = 4.14975;
+        public static final double kSecondToLastPegFromOuterWall = 2.97974;
         public static final double kFirstShelfToOuterWall = 1.04775;
         public static final double kSecondPegToOuterWall = 1.59226;
         public static final double kFirstPegToOuterWall = .422275;
-        public static final double kOuterGamepieceMetersFromWall = .92075;
+        public static final double kLastGamePieceFromOuterWall = 4.57835;
+        public static final double kDistanceBetweenFirstSecondPegs = kSecondPegToOuterWall-kFirstPegToOuterWall;
+        public static final double kFirstGamepieceMetersFromWall = .92075;
+        public static final double kAutoDriveC1DeltaY = kFirstGamepieceMetersFromWall - kSecondPegToOuterWall;
+        public static final double kAutoDriveC2DeltaY = kFirstPegToOuterWall - kFirstGamepieceMetersFromWall;
+        public static final double kAutoDriveE1DeltaY = kLastGamePieceFromOuterWall - kSecondToLastPegFromOuterWall;
+        public static final double kAutoDriveE2DeltaY = kLastPegFromOuterWall - kLastGamePieceFromOuterWall;
         public static final double kMaxSpeedMetersPerSecond = 3;
-        public static final double kMaxAccelerationMetersPerSecondSquared = 3;
+        public static final double kMaxAccelerationMetersPerSecondSquared = 2;
         public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
         public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;
     

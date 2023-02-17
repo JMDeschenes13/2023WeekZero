@@ -55,7 +55,7 @@ public class AutoDriveB1 extends CommandBase {
       // Pass through these two interior waypoints
       List.of(new Translation2d(1, 0), new Translation2d(2, 0)),
       // End x meters straight ahead of where we started, facing forward
-      new Pose2d(5, 0, new Rotation2d(Math.PI)),
+      new Pose2d(4.5, 0, new Rotation2d(Math.PI)),
       config);
 
   var thetaController = new ProfiledPIDController(
