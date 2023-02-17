@@ -41,7 +41,7 @@ public class AutoDriveC3 extends CommandBase {
 
   public Command drive(){
     // Create config for trajectory
-    double yMovement = AutoConstants.kFirstPegToOuterWall;
+    
     TrajectoryConfig config = new TrajectoryConfig(
       AutoConstants.kMaxSpeedMetersPerSecond,
       AutoConstants.kMaxAccelerationMetersPerSecondSquared)

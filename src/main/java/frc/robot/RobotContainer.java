@@ -11,6 +11,7 @@ import edu.wpi.first.math.MathUtil;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -46,6 +47,7 @@ import frc.robot.commands.AutoCommandSelector;
 /** Add your docs here. */
 public class RobotContainer {
 
+    private DriverStation.Alliance allianceColor = DriverStation.getAlliance();
     private static final String kAutoA= "A";
     private static final String kAutoB = "B";
     private static final String kAutoC = "C";
@@ -105,7 +107,7 @@ public class RobotContainer {
         // The left stick controls translation of the robot.
         // Turning is controlled by the X axis of the right stick.
         new RunCommand(
-            () -> driveWithJoystick(true)));
+            () -> driveWithJoystick(!m_driveJoystick.getRawButton(2))));
     }
 
     private void configureBindings(){
@@ -139,7 +141,7 @@ public class RobotContainer {
 
     public Command getAutonomousCommand() {
         m_autoSelected = m_chooser.getSelected();
-        return new AutoCommandSelector(m_drivetrain, m_arm, m_wrist, m_claw, m_autoSelected);
+        return new AutoCommandSelector(m_drivetrain, m_arm, m_wrist, m_claw, m_autoSelected, allianceColor);
         }
             
       

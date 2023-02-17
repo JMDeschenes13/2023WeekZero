@@ -17,7 +17,6 @@ import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import frc.robot.Drivetrain;
 import frc.robot.Constants.AutoConstants;
@@ -44,6 +43,7 @@ public class AutoDriveC1 extends CommandBase {
 
   public Command drive(){
     double yMovement = AutoConstants.kAutoDriveC1DeltaY;
+    int yInverted = AutoConstants.kyInverted;
     // Create config for trajectory
     TrajectoryConfig config = new TrajectoryConfig(
       AutoConstants.kMaxSpeedMetersPerSecond,
@@ -56,9 +56,9 @@ public class AutoDriveC1 extends CommandBase {
       // Start at the origin facing the +X direction
       new Pose2d(0, 0, new Rotation2d(0)),
       // Pass through these two interior waypoints, making an 's' curve path
-      List.of(new Translation2d(4.25,yMovement )),
+      List.of(new Translation2d(4.25,yMovement*yInverted )),
       // End 3 meters straight ahead of where we started, facing forward
-      new Pose2d(4.953, yMovement, new Rotation2d(Math.PI)),
+      new Pose2d(4.953, yMovement*yInverted, new Rotation2d(Math.PI)),
       config);
 
   var thetaController = new ProfiledPIDController(

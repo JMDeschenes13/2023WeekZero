@@ -97,6 +97,7 @@ public class Constants {
     }
 
     public static final class AutoConstants {
+        public static int kyInverted = 1;
         public static final double kLastPegFromOuterWall = 4.14975;
         public static final double kSecondToLastPegFromOuterWall = 2.97974;
         public static final double kFirstShelfToOuterWall = 1.04775;

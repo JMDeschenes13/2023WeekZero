@@ -42,6 +42,7 @@ public class AutoDriveE1 extends CommandBase {
 
   public Command drive(){
     double yMovement = AutoConstants.kAutoDriveE1DeltaY;
+    int yInverted = AutoConstants.kyInverted;
     // Create config for trajectory
     TrajectoryConfig config = new TrajectoryConfig(
       AutoConstants.kMaxSpeedMetersPerSecond,
@@ -54,9 +55,9 @@ public class AutoDriveE1 extends CommandBase {
       // Start at the origin facing the +X direction
       new Pose2d(0, 0, new Rotation2d(0)),
       // Pass through these two interior waypoints, making an 's' curve path
-      List.of(new Translation2d(0.25, yMovement)),
+      List.of(new Translation2d(0.25, yMovement*yInverted)),
       // End 3 meters straight ahead of where we started, facing forward
-      new Pose2d(4.953, yMovement, new Rotation2d(Math.PI)),
+      new Pose2d(4.953, yMovement*yInverted, new Rotation2d(Math.PI)),
       config);
 
   var thetaController = new ProfiledPIDController(

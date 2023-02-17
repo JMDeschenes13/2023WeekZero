@@ -4,25 +4,34 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Drivetrain;
+import frc.robot.Constants.AutoConstants;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.Wrist;
 
 public class AutoCommandSelector extends CommandBase {
+  String kRedAllianceName = "Red";
+  String m_color;
   String m_autoSelected;
   Drivetrain m_drivetrain;
   Arm m_arm;
   Wrist m_wrist;
   Claw m_claw;
   /** Creates a new AutoCommandSelector. */
-  public AutoCommandSelector(Drivetrain drivetrain, Arm arm, Wrist wrist, Claw claw, String autoSelected) {
+  public AutoCommandSelector(Drivetrain drivetrain, Arm arm, Wrist wrist, Claw claw, String autoSelected,  DriverStation.Alliance allianceColor) {
+    m_color = allianceColor.name();
     m_autoSelected = autoSelected;
     m_drivetrain = drivetrain;
     m_arm = arm;
     m_wrist = wrist;
     m_claw = claw;
+    if(m_color == kRedAllianceName){
+      AutoConstants.kyInverted = -1;
+    }
+    
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drivetrain, arm, wrist, claw);
   }
