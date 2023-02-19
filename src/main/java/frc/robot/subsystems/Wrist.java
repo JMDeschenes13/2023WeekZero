@@ -162,7 +162,10 @@ public Wrist() {
 
   public void goTo(double targetEncoderPosition){
 
+
     wristMotor.set(ControlMode.MotionMagic, targetEncoderPosition);
+    SmartDashboard.putNumber("WristMotor1Current", wristMotor.getSupplyCurrent());
+    SmartDashboard.putNumber("WristMotor2Current", wristFollower.getSupplyCurrent());
     SmartDashboard.putNumber("WristTargetPosition", targetEncoderPosition);
 
 }

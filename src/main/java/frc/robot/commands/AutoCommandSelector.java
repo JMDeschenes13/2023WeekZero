@@ -60,6 +60,12 @@ public class AutoCommandSelector extends CommandBase {
             if(m_autoSelected == "E"){
               new AutoCommandE(m_drivetrain, m_arm, m_wrist, m_claw);
             }
+
+            else{
+              if(m_autoSelected == "F"){
+                new AutoCommandF(m_drivetrain, m_arm, m_wrist, m_claw);
+              }
+            }
           }
         }
       }

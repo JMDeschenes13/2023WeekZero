@@ -29,10 +29,10 @@ public class Constants {
         public static final int kBackRightDrivePort = 1;
 
         //Truning Motors
-        public static final int kFrontLeftTurningPort = 8;
-        public static final int kFrontRightTuringPort = 7;
-        public static final int kBackLeftTurningPort = 6;
-        public static final int kBackRightTurningPort = 5;
+        public static final int kFrontLeftTurningPort = 0;// Motor 8
+        public static final int kFrontRightTuringPort = 7;//Motor 4
+        public static final int kBackLeftTurningPort = 6; // Motor 2
+        public static final int kBackRightTurningPort = 5;// Motor 6
 
         //TurningEncoderChannels
         public static final int kFrontLeftEncoderChannelA = 6;
@@ -51,10 +51,10 @@ public class Constants {
         public static final boolean kBackRightEncoderInverted = false;
 
         //Drive Motors Inverted
-        public static final boolean kfrontLeftDriveMotorInverted = true;
-        public static final boolean kfrontRightDriveMotorInverted = false;
-        public static final boolean kbackLeftDriveMotorInverted = true;
-        public static final boolean kbackRightDriveMotorInverted = false;
+        public static final boolean kfrontLeftDriveMotorInverted = false;
+        public static final boolean kfrontRightDriveMotorInverted = true;
+        public static final boolean kbackLeftDriveMotorInverted = false;
+        public static final boolean kbackRightDriveMotorInverted = true;
 
         //Turning Motors Inverted
         public static final boolean kfrontLeftTurningMotorInverted = false;
@@ -70,27 +70,28 @@ public class Constants {
 
         //Claw
         public static final int kclawClosePort = 1;
-        public static final int kclawOpenPort = 2;
+        public static final int kclawOpenPort = 0;
 
         //Arm
-        public static final int karmExtendPort = 3;
-        public static final int karmRetractPort = 4;
+        public static final int karmExtendPort = 2;
+        public static final int karmRetractPort = 3;
 
         //Wrist
-        public static final int kwristDriveRatio = 60;
-        public static final double kwristSpeed = 400;
-        public static final double kwristAcceleration = 50;
-        public static final double kwristMaxOutputPercentage = 1;
         public static final int kwristMotor = 11;
-        public static final int kwristFollowerMotor = 3;
+        public static final int kwristFollowerMotor = 12;
+        public static final int kwristDriveRatio = 60;
+        public static final double kwristSpeed = 2200;
+        public static final double kwristAcceleration = 1200;
+        public static final double kwristMaxOutputPercentage = 1;
         public static final int kwristEncoderThreshold = 15;
-        public static final double kbottomEncoderPosition = (30*kwristDriveRatio*2048)/360; // = (desiredAngle * driveRatio * countsPerRev)/360 = motorEncoderCounts
-        public static final double kfeederStationEncoderPosition = (115*kwristDriveRatio*2048)/360;
-        public static final double kmiddlePegEncoderPosition = (90*kwristDriveRatio*2048)/360;
-        public static final double kmiddleShelfEncoderPosition = (80*kwristDriveRatio*2048)/360;
-        public static final double kstartEncoderPosition = (50*kwristDriveRatio*2048)/360;
-        public static final double ktopPegEncoderPosition = (130*kwristDriveRatio*2048)/360;
-        public static final double ktopShelfEncoderPostion = (120*kwristDriveRatio*2048)/360;
+        public static final double kdriveEncoderPosition = (45*kwristDriveRatio*2048)/360;
+        public static final double kbottomEncoderPosition = (20*kwristDriveRatio*2048)/360; // = (desiredAngle * driveRatio * countsPerRev)/360 = motorEncoderCounts
+        public static final double kfeederStationEncoderPosition = (99*kwristDriveRatio*2048)/360;
+        public static final double kmiddlePegEncoderPosition = (100*kwristDriveRatio*2048)/360;
+        public static final double kmiddleShelfEncoderPosition = (90*kwristDriveRatio*2048)/360;
+        public static final double kstartEncoderPosition = (35*kwristDriveRatio*2048)/360;
+        public static final double ktopPegEncoderPosition = (120*kwristDriveRatio*2048)/360;
+        public static final double ktopShelfEncoderPostion = (115*kwristDriveRatio*2048)/360;
         
 
        
@@ -110,13 +111,13 @@ public class Constants {
         public static final double kAutoDriveC2DeltaY = kFirstPegToOuterWall - kFirstGamepieceMetersFromWall;
         public static final double kAutoDriveE1DeltaY = kLastGamePieceFromOuterWall - kSecondToLastPegFromOuterWall;
         public static final double kAutoDriveE2DeltaY = kLastPegFromOuterWall - kLastGamePieceFromOuterWall;
-        public static final double kMaxSpeedMetersPerSecond = 3;
+        public static final double kMaxSpeedMetersPerSecond = 2;
         public static final double kMaxAccelerationMetersPerSecondSquared = 2;
-        public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
+        public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI/2;
         public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;
     
-        public static final double kPXController = 1;
-        public static final double kPYController = 1;
+        public static final double kPXController = 4;
+        public static final double kPYController = 4;
         public static final double kPThetaController = 1;
     
         // Constraint for the motion profiled robot angle controller

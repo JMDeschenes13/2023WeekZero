@@ -13,10 +13,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Claw extends SubsystemBase {
 
-  private final int PCMCANid = 2;
   private final int kforwardChannel = ManipulatorConstants.kclawOpenPort;
   private final int kbackwardChannel = ManipulatorConstants.kclawClosePort;
-  private final DoubleSolenoid m_solenoid = new DoubleSolenoid(PCMCANid,PneumaticsModuleType.CTREPCM,kforwardChannel, kbackwardChannel);
+  private final DoubleSolenoid m_solenoid = new DoubleSolenoid(ManipulatorConstants.PCMCANId,PneumaticsModuleType.CTREPCM,kforwardChannel, kbackwardChannel);
   /** Creates a new Pnuematics. */
   public Claw() {
 

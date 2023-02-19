@@ -32,7 +32,7 @@ public class SwerveModule extends SubsystemBase{
   private static final double kDrivePositionToMeters = (2*Math.PI*kWheelRadius)/(kDriveRatio*kDriveEncoderResolution);
   private static final double kDriveVelocityToMetersPerSecond = (10*2*Math.PI*kWheelRadius)/(kDriveRatio*kDriveEncoderResolution);
 
-  private static final double kModuleMaxAngularVelocity = Drivetrain.kMaxAngularSpeed;
+  private static final double kModuleMaxAngularVelocity = 4*Math.PI;
   private static final double kModuleMaxAngularAcceleration =
       2 * Math.PI; // radians per second squared
 
@@ -48,7 +48,7 @@ public class SwerveModule extends SubsystemBase{
   // Gains are for example purposes only - must be determined for your own robot!
   private final ProfiledPIDController m_turningPIDController =
       new ProfiledPIDController(
-          11,
+          30,
           0,
           0,
           new TrapezoidProfile.Constraints(
@@ -56,7 +56,7 @@ public class SwerveModule extends SubsystemBase{
 
   // Gains are for example purposes only - must be determined for your own robot!
   private final SimpleMotorFeedforward m_driveFeedforward = new SimpleMotorFeedforward(1, 3);
-  private final SimpleMotorFeedforward m_turnFeedforward = new SimpleMotorFeedforward(1, 0.5);
+  private final SimpleMotorFeedforward m_turnFeedforward = new SimpleMotorFeedforward(2, 4);
 
   /**
    * Constructs a SwerveModule with a drive motor, turning motor, drive encoder and turning encoder.

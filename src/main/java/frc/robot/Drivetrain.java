@@ -16,14 +16,15 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 //import edu.wpi.first.wpilibj.AnalogGyro;
 import com.ctre.phoenix.sensors.PigeonIMU;
 
 
 /** Represents a swerve drive style drivetrain. */
 public class Drivetrain extends SubsystemBase {
-  public static final double kMaxSpeed = 3.0; // 3 meters per second
-  public static final double kMaxAngularSpeed = Math.PI/3; // 1/2 rotation per second
+  public static final double kMaxSpeed = 1.25; // 3 meters per second
+  public static final double kMaxAngularSpeed = Math.PI/3.5; // 1/2 rotation per second
 
   private final Translation2d m_frontLeftLocation = new Translation2d(.368, 0.244);
   private final Translation2d m_frontRightLocation = new Translation2d(0.368, -0.244);
@@ -82,6 +83,7 @@ public class Drivetrain extends SubsystemBase {
   }
   public Drivetrain() {
     m_gyro.setYaw(180);
+
   }
 
   /**
@@ -110,11 +112,16 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public void setModuleStates(SwerveModuleState[] swerveModuleStates){
+    SmartDashboard.putString("FronleftTargetSpeed", swerveModuleStates[0].toString());
     m_frontLeft.setDesiredState(swerveModuleStates[0]);
     m_frontRight.setDesiredState(swerveModuleStates[1]);
     m_backLeft.setDesiredState(swerveModuleStates[2]);
     m_backRight.setDesiredState(swerveModuleStates[3]);
   }
+
+ // public void autoDrive(double xSpeed){
+  //  m_frontLeft.m_driveMotor.set(ControlMode.PercentOutput,)
+ // }
 
   
   
@@ -125,10 +132,14 @@ public class Drivetrain extends SubsystemBase {
     SmartDashboard.putNumber("Encoder 2 Counts", m_backLeft.m_turningEncoder.getDistance() );
     SmartDashboard.putNumber("Encoder 3 Counts", m_backRight.m_turningEncoder.getDistance() );
     SmartDashboard.putNumber("Gyro Heading", m_gyro.getYaw());
+    SmartDashboard.putNumber("Gyro Pitch", m_gyro.getPitch());
+    SmartDashboard.putNumber("Gyro Roll", m_gyro.getRoll());
+    SmartDashboard.putNumber("Gyro Yaw", m_gyro.getYaw());
 
   }
   /** Updates the field relative position of the robot. */
   public void updateOdometry() {
+    
     m_odometry.update(
         getRotation2d(),
         new SwerveModulePosition[] {
@@ -151,4 +162,5 @@ public class Drivetrain extends SubsystemBase {
   public Pose2d getPose() {
     return m_odometry.getPoseMeters();
   }
+
 }

@@ -14,8 +14,11 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import frc.robot.Drivetrain;
 import frc.robot.Constants.AutoConstants;
@@ -39,7 +42,9 @@ public class AutoDriveToTopPeg extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    drive();
+  }
 
   public Command drive(){
     // Create config for trajectory
@@ -54,14 +59,18 @@ public class AutoDriveToTopPeg extends CommandBase {
       // Start at the origin facing the +X direction
       new Pose2d(0, 0, new Rotation2d(0)),
       // Pass through these two interior waypoints, making an 's' curve path
-      List.of(new Translation2d(0, 0), new Translation2d(1, 0)),
+      List.of( new Translation2d(2, 0)),
       // End 3 meters straight ahead of where we started, facing forward
-      new Pose2d(0, 0, new Rotation2d(0)),
+      new Pose2d(4, 0, new Rotation2d(0)),
       config);
 
   var thetaController = new ProfiledPIDController(
       AutoConstants.kPThetaController, 0, 0, AutoConstants.kThetaControllerConstraints);
   thetaController.enableContinuousInput(-Math.PI, Math.PI);
+  var xController = new PIDController(AutoConstants.kPXController, 0, 0);
+  var yController = new PIDController(AutoConstants.kPYController, 0, 0);
+  SmartDashboard.putNumber("xController.getPositionError", xController.getPositionError());
+ 
 
   SwerveControllerCommand swerveControllerCommand = new SwerveControllerCommand(
       exampleTrajectory,
@@ -69,8 +78,8 @@ public class AutoDriveToTopPeg extends CommandBase {
       DriveConstants.kDriveKinematics,
 
       // Position controllers
-      new PIDController(AutoConstants.kPXController, 0, 0),
-      new PIDController(AutoConstants.kPYController, 0, 0),
+      xController,
+      yController,
       thetaController,
       m_drivetrain::setModuleStates,
       m_drivetrain);
@@ -89,6 +98,6 @@ public class AutoDriveToTopPeg extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

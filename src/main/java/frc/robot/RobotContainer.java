@@ -7,15 +7,11 @@ package frc.robot;
 
 
 
-import edu.wpi.first.math.MathUtil;
-
-import edu.wpi.first.math.filter.SlewRateLimiter;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -30,14 +26,20 @@ import frc.robot.commands.ClawClose;
 import frc.robot.commands.ClawOpen;
 import frc.robot.commands.DrivetrainLockWheels;
 import frc.robot.commands.WristToBottom;
+import frc.robot.commands.WristToDrive;
 import frc.robot.commands.WristToFeederStation;
 import frc.robot.commands.WristToMiddlePeg;
 import frc.robot.commands.WristToMiddleShelf;
+import frc.robot.commands.WristToStart;
 import frc.robot.commands.WristToTopPeg;
 import frc.robot.commands.WristToTopShelf;
+import frc.robot.commands.driveWithJoystick;
 import frc.robot.commands.ArmExtend;
 import frc.robot.commands.ArmRetract;
+import frc.robot.commands.AutoCommandB;
+import frc.robot.commands.AutoCommandF;
 import frc.robot.Constants.OIConstants;
+import frc.robot.commands.ChargeStationLevel;
 
 //Auto Commands
 
@@ -47,19 +49,18 @@ import frc.robot.commands.AutoCommandSelector;
 /** Add your docs here. */
 public class RobotContainer {
 
-    private DriverStation.Alliance allianceColor = DriverStation.getAlliance();
+    private DriverStation.Alliance allianceColor;
     private static final String kAutoA= "A";
     private static final String kAutoB = "B";
     private static final String kAutoC = "C";
     private static final String kAutoD = "D";
     private static final String kAutoE = "E";
+    private static final String kAutoF = "F";
     private String m_autoSelected;
     private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
 
-    private final SlewRateLimiter m_xspeedLimiter = new SlewRateLimiter(5);
-    private final SlewRateLimiter m_yspeedLimiter = new SlewRateLimiter(5);
-    private final SlewRateLimiter m_rotLimiter = new SlewRateLimiter(5);
+    
 
    
     private final Joystick m_driveJoystick = new Joystick(OIConstants.kdriveJoystick);
@@ -83,92 +84,66 @@ public class RobotContainer {
     private final WristToMiddleShelf m_wristToMiddleShelf = new WristToMiddleShelf(m_wrist);
     private final WristToTopPeg m_wristToTopPeg = new WristToTopPeg(m_wrist);
     private final WristToTopShelf m_wristToTopShelf = new WristToTopShelf(m_wrist);
+    private final WristToStart m_wristToStart = new WristToStart(m_wrist);
     private final ArmExtend m_armExtend = new ArmExtend(m_arm);
     private final ArmRetract m_armRetract = new ArmRetract(m_arm);
     private final DrivetrainLockWheels m_lockWheels = new DrivetrainLockWheels(m_drivetrain);
+    private final ChargeStationLevel m_level = new ChargeStationLevel(m_drivetrain);
+    private final WristToDrive m_wristToDrive = new WristToDrive(m_wrist);
     
     
 
 
 
     public RobotContainer(){
+        allianceColor = DriverStation.getAlliance();
         m_chooser.setDefaultOption("A", kAutoA);
         m_chooser.addOption("B", kAutoB);
         m_chooser.addOption("C", kAutoC);
         m_chooser.addOption("D", kAutoD);
         m_chooser.addOption("E", kAutoE);
         SmartDashboard.putData("Auto choices", m_chooser);
+        SmartDashboard.putString("alliance", allianceColor.name());
 
         
         
 
         configureBindings();
-        m_drivetrain.setDefaultCommand(
-        // The left stick controls translation of the robot.
-        // Turning is controlled by the X axis of the right stick.
-        new RunCommand(
-            () -> driveWithJoystick(!m_driveJoystick.getRawButton(2))));
+        m_drivetrain.setDefaultCommand(new driveWithJoystick(m_drivetrain, !m_driveJoystick.getRawButton(2), m_driveJoystick));
     }
 
     private void configureBindings(){
 
         new JoystickButton(m_actuatorJoystick, Button.kLeftBumper.value).onTrue(m_clawClose);
         new JoystickButton(m_actuatorJoystick, Button.kRightBumper.value).onTrue(m_clawOpen);
-        //new JoystickButton(m_driveJoystick, 3).onTrue(m_actuateClaw);
-        //new JoystickButton(m_driveJoystick, 1).onTrue(m_clawOpen);
-        //new JoystickButton(m_driveJoystick, 2).onTrue(m_clawClose);
-        //new JoystickButton(m_driveJoystick, 7).onTrue(m_wristToBottom);
-        //new JoystickButton(m_driveJoystick, 8).onTrue(m_wristToFeederStation);
-        //new JoystickButton(m_driveJoystick, 9).onTrue(m_wristToMiddlePeg);
-        //new JoystickButton(m_driveJoystick, 10).onTrue(m_wristToMiddleShelf);
-        //new JoystickButton(m_driveJoystick, 11).onTrue(m_wristToTopPeg);
-        //new JoystickButton(m_driveJoystick, 12).onTrue(m_wristToTopShelf);
         new JoystickButton(m_driveJoystick, 4).onTrue(m_armRetract);
         new JoystickButton(m_driveJoystick, 6).onTrue(m_armExtend);
-        new JoystickButton(m_driveJoystick, 12).onTrue(m_lockWheels);
+        //new JoystickButton(m_driveJoystick, 12).onTrue(m_lockWheels);
+        //new JoystickButton(m_driveJoystick, 1).onTrue(m_level);
         new JoystickButton(m_actuatorJoystick, Button.kA.value).onTrue(m_wristToBottom);
         new JoystickButton(m_actuatorJoystick, Button.kB.value).onTrue(m_wristToFeederStation);
         new JoystickButton(m_actuatorJoystick, Button.kX.value).onTrue(m_wristToMiddlePeg);
-        new JoystickButton(m_actuatorJoystick, Button.kY.value).onTrue(m_wristToMiddleShelf);
+        new JoystickButton(m_actuatorJoystick, Button.kY.value).onTrue(m_wristToStart);
         new JoystickButton(m_actuatorJoystick, Button.kStart.value).onTrue(m_wristToTopPeg);
         new JoystickButton(m_actuatorJoystick, Button.kBack.value).onTrue(m_wristToTopShelf);
+        new JoystickButton(m_actuatorJoystick, Button.kRightStick.value).onTrue(m_wristToMiddleShelf);
+        new JoystickButton(m_actuatorJoystick, Button.kLeftStick.value).onTrue(m_wristToDrive);
 
 
 
        
 
+
     }
 
     public Command getAutonomousCommand() {
         m_autoSelected = m_chooser.getSelected();
-        return new AutoCommandSelector(m_drivetrain, m_arm, m_wrist, m_claw, m_autoSelected, allianceColor);
+        Command m_autoCommand = new AutoCommandF(m_drivetrain, m_arm, m_wrist, m_claw);
+        return m_autoCommand;
         }
             
       
 
-    private void driveWithJoystick(boolean fieldRelative) {
-        // Get the x speed. We are inverting this because Xbox controllers return
-        // negative values when we push forward.
-        final var xSpeed =
-            -m_xspeedLimiter.calculate(MathUtil.applyDeadband(m_driveJoystick.getY(), 0.15))
-                * Drivetrain.kMaxSpeed;
     
-        // Get the y speed or sideways/strafe speed. We are inverting this because
-        // we want a positive value when we pull to the left. Xbox controllers
-        // return positive values when you pull to the right by default.
-        final var ySpeed =
-            -m_yspeedLimiter.calculate(MathUtil.applyDeadband(m_driveJoystick.getX(), 0.1))
-                * Drivetrain.kMaxSpeed;
-    
-        // Get the rate of angular rotation. We are inverting this because we want a
-        // positive value when we pull to the left (remember, CCW is positive in
-        // mathematics). Xbox controllers return positive values when you pull to
-        // the right by default.
-        final var rot =
-            -m_rotLimiter.calculate(MathUtil.applyDeadband(m_driveJoystick.getZ(), 0.1))
-                * Drivetrain.kMaxAngularSpeed;
-        m_drivetrain.updateOdometry();
-        m_drivetrain.drive(xSpeed, ySpeed, rot, fieldRelative);
-      }
 }
 
